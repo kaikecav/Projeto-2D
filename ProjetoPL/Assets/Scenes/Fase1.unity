@@ -11913,6 +11913,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2056070260}
+  - component: {fileID: 2056070261}
   m_Layer: 0
   m_Name: Pizza Selector
   m_TagString: Untagged
@@ -11937,6 +11938,26 @@ Transform:
   - {fileID: 839754869}
   m_Father: {fileID: 1801590905}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2056070261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056070259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb7a61fbc20640d458a3291fea75ab27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bagRenderer: {fileID: 0}
+  bagOpenSprite: {fileID: 21300000, guid: 8af1eccfbdf421d44998b08126f2efcc, type: 3}
+  bagClosedSprite: {fileID: -2774829817715489269, guid: d4cb943861a1d38448ec83c097adbd42, type: 3}
+  pizzaRenderer: {fileID: 0}
+  pizzaSprites: []
+  currentPizzaIndex: 0
+  bagSwitchDuration: 0.4
+  isSwitching: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class BotaoIniciar : MonoBehaviour
 
     public void Jogar()
     {
-        SceneManager.LoadScene(nomeDoLevelDeJogo);
+        SceneManager.LoadScene("Fase1");
     }
 
     public void SairJogo()
