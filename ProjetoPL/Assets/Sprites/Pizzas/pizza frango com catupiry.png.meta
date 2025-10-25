@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 432b8bc04b57eb7478b32fa7350a9ad2
+guid: c160fa978188e5e40b594558b3d11a8f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1542179880902591032
-    second: pizza-pixel-art-com-calabresa-e-queijo-icone-do-jogo-de-bits_360488-109-removebg-preview_0
+      213: 5312415166493608203
+    second: pizza frango com catupiry_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pizza-pixel-art-com-calabresa-e-queijo-icone-do-jogo-de-bits_360488-109-removebg-preview_0
+      name: pizza frango com catupiry_0
       rect:
         serializedVersion: 2
-        x: 10
+        x: 6
         y: 7
-        width: 485
-        height: 479
+        width: 488
+        height: 478
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8cdfb03b193199ae0800000000000000
-      internalID: -1542179880902591032
+      spriteID: b09cf32927d79b940800000000000000
+      internalID: 5312415166493608203
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      pizza-pixel-art-com-calabresa-e-queijo-icone-do-jogo-de-bits_360488-109-removebg-preview_0: -1542179880902591032
+      pizza frango com catupiry_0: 5312415166493608203
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

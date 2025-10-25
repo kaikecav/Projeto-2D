@@ -1,13 +1,36 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "Item")]      //permite criar um asset com as características deste  código
-public class Item : ScriptableObject        //ScriptableObject determina que é um objeto modificável
+public class Item : MonoBehaviour
 {
-    [Header("Identificação única")]     //título no menu da Unity
-    public string itemID;       //cria a classe nomeável para o ID do Item
+    [SerializeField]
+    private string pizzaName;
 
-    public string itemName;     //cria a classe nomeável para o nome do Item
-    public Sprite itemImage;        //cria a classe que permite colocar a imagem do item
-    [TextArea]
-    public string description;      //cria a classe nomeável para a descrição do Item
+    [SerializeField]
+    private int quantity;
+
+    [SerializeField]
+    private Sprite pizzaSprite;
+
+    private InventoryManager inventoryManager;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        inventoryManager = GameObject.Find("Inventory Canva").GetComponent<InventoryManager>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            inventoryManager.AddItem(pizzaName, quantity, pizzaSprite);
+            Destroy(gameObject);
+        }
+    }
 }
