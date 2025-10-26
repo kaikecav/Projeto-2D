@@ -2,6 +2,8 @@
 
 public class InventoryManager : MonoBehaviour
 {
+    [HideInInspector] public ItemSlot selectedSlot;
+
     public GameObject InventoryBagMenu;
     private bool menuActivated;
     public ItemSlot[] itemSlot;
@@ -68,10 +70,12 @@ public class InventoryManager : MonoBehaviour
 
     public void DeselectAllSlots()
     {
-        for (int i = 0;i < itemSlot.Length;i++)
+        for (int i = 0; i < itemSlot.Length; i++)
         {
             itemSlot[i].selectedShader.SetActive(false);
             itemSlot[i].thisItemSelected = false;
         }
+
+        selectedSlot = null; // limpa o slot selecionado
     }
 }

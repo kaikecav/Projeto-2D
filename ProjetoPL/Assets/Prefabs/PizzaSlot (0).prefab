@@ -96,7 +96,7 @@ MonoBehaviour:
   pizzaSprite: {fileID: 0}
   isFull: 0
   emptySprite: {fileID: 21300000, guid: 1cd2e12445f703645a7cb0ce888c8d53, type: 3}
-  maxNumberOfItems: 9
+  maxNumberOfItems: 10
   quantityText: {fileID: 9081480124589322049}
   pizzaImage: {fileID: 2583402374399475517}
   BoxPizzaImage: {fileID: 0}
@@ -374,7 +374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.6226415, g: 0, b: 0, a: 0.5882353}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

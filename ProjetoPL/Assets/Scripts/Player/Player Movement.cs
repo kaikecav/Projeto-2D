@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        transform.position = new Vector3 (-22f, -2.8f, 0f);
+        
         rig = GetComponent<Rigidbody2D>();
         rig.freezeRotation = true;
         rig.gravityScale = 2f;
@@ -45,9 +48,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Flip horizontal
         if (moveInput > 0)
-            transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            transform.localScale = new Vector3(0.35f, 0.35f, 1.5f);
         else if (moveInput < 0)
-            transform.localScale = new Vector3(-1.5f, 1.5f, 1.5f);
+            transform.localScale = new Vector3(-0.35f, 0.35f, 1.5f);
     }
 
     void Jump()
@@ -58,6 +61,18 @@ public class PlayerMovement : MonoBehaviour
             rig.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
             jumpCount++;
             isGrounded = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D chegar)
+    {
+        if(chegar.gameObject.name == "FimdoTutorial")
+        {
+            SceneManager.LoadScene("Fase2");
+        }
+        if(chegar.gameObject.name == "Queda")
+        {
+            Start();
         }
     }
 

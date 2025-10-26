@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -25,15 +26,27 @@ public class Item : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             int leftOverItems = inventoryManager.AddItem(pizzaName, quantity, pizzaSprite);
             if (leftOverItems <= 0)
-                Destroy(gameObject);
+            {
+                GetComponent<ItemRespawn>().StartRespawn(); // usa o script de respawn
+            }
             else
+            {
                 quantity = leftOverItems;
+            }
         }
+    }
+
+    IEnumerator Retorno(float tempo)
+    {
+        yield return new WaitForSeconds(tempo);
+        //Ativa o collider e o objeto do ITEM
+        GetComponent<Collider2D>().enabled = true;
+        gameObject.SetActive(true);
     }
 }

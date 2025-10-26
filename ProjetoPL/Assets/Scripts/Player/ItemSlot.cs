@@ -14,14 +14,14 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public Sprite emptySprite;
 
     [SerializeField]
-    private int maxNumberOfItems;
+    public int maxNumberOfItems;
 
     //ITEM SLOT
     [SerializeField]
-    private TMP_Text quantityText;
+    public TMP_Text quantityText;
 
     [SerializeField]
-    private Image pizzaImage;
+    public Image pizzaImage;
 
     //ITEM SELECIONADO A MOSTRA NA CAIXA
     public Image BoxPizzaImage;
@@ -100,6 +100,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         {
             BoxPizzaImage.sprite = emptySprite;
         }
+
+        inventoryManager.selectedSlot = this; // informa ao inventário qual item está selecionado
     }
 
 
