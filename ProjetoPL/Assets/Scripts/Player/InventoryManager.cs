@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -9,8 +9,12 @@ public class InventoryManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
+            Debug.Log("Slot " + i + " = " + itemSlot[i].gameObject.name);
+        }
     }
+
 
     // Update is called once per frame
     void Update()
@@ -30,17 +34,37 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void AddItem(string pizzaName, int quantity, Sprite pizzaSprite)
+    public int AddItem(string pizzaName, int quantity, Sprite pizzaSprite)
     {
-        for(int i = 0; i < itemSlot.Length; i++)
+        // 1️⃣ Primeiro: tenta achar um slot que JÁ TENHA essa pizza
+        for (int i = 0; i < itemSlot.Length; i++)
         {
-            if (itemSlot[i].isFull == false)
+            if (itemSlot[i].pizzaName == pizzaName && itemSlot[i].quantity > 0 && !itemSlot[i].isFull)
             {
-                itemSlot[i].AddItem (pizzaName, quantity, pizzaSprite);
-                return;
+                int leftOver = itemSlot[i].AddItem(pizzaName, quantity, pizzaSprite);
+                if (leftOver > 0)
+                    return AddItem(pizzaName, leftOver, pizzaSprite);
+                return 0;
             }
         }
+
+        // 2️⃣ Depois: se não achar, procura um slot vazio
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
+            if (itemSlot[i].quantity == 0 && !itemSlot[i].isFull)
+            {
+                int leftOver = itemSlot[i].AddItem(pizzaName, quantity, pizzaSprite);
+                if (leftOver > 0)
+                    return AddItem(pizzaName, leftOver, pizzaSprite);
+                return 0;
+            }
+        }
+
+        // 3️⃣ Se o inventário estiver cheio
+        return quantity;
     }
+
+
 
     public void DeselectAllSlots()
     {
