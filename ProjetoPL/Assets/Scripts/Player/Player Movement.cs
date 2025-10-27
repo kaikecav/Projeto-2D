@@ -20,15 +20,17 @@ public class PlayerMovement : MonoBehaviour
     private float currentAngle = 0f;
     private float angleVelocity = 0f;
 
+    public PlayerHealth playerHealth;
+
     void Start()
     {
-        transform.position = new Vector3 (-22f, -2.8f, 0f);
+        transform.position = new Vector3 (-22f, -2.8f, 0f);     //Faz o player voltar para a poisição inicial
         
         rig = GetComponent<Rigidbody2D>();
         rig.freezeRotation = true;
         rig.gravityScale = 2f;
 
-        // 🧱 Garante que o personagem não terá atrito físico
+        //Garante que o personagem não terá atrito físico
         PhysicsMaterial2D noFriction = new PhysicsMaterial2D("NoFriction");
         noFriction.friction = 0f;
         noFriction.bounciness = 0f;
@@ -43,10 +45,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
+        //Permite o player se mover baseado na velocidade
         float moveInput = Input.GetAxis("Horizontal");
         rig.linearVelocity = new Vector2(moveInput * Speed, rig.linearVelocity.y);
 
-        // Flip horizontal
+        //Flip horizontal
         if (moveInput > 0)
             transform.localScale = new Vector3(0.35f, 0.35f, 1.5f);
         else if (moveInput < 0)
@@ -55,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
+        //permite o player pular aplicando uma força a ele e permite a aplicação de pulos extras
         if (Input.GetButtonDown("Jump") && jumpCount < extraJumps + 1)
         {
             rig.linearVelocity = new Vector2(rig.linearVelocity.x, 0f);
@@ -66,10 +70,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D chegar)
     {
-        if(chegar.gameObject.name == "FimdoTutorial")
-        {
-            SceneManager.LoadScene("Fase2");
-        }
+        //Faz o jogo ser resetado caso caia em um buraco
         if(chegar.gameObject.name == "Queda")
         {
             Start();
