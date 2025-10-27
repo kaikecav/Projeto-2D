@@ -21,10 +21,13 @@ public class PlayerHealth : MonoBehaviour
     void Update()
     {
         HealthLogic();
+
     }
 
     void HealthLogic()
     {
+
+
         if (vida > vidamaxima)
         {
             vida = vidamaxima;
@@ -49,6 +52,9 @@ public class PlayerHealth : MonoBehaviour
             {
                 heart[i].enabled = false;
             }
+
+
         }
+
     }
 }
