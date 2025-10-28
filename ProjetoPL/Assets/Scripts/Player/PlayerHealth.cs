@@ -15,6 +15,7 @@ public class PlayerHealth : MonoBehaviour
 
     private bool morto = false; //evita que morra mais de uma vez
 
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -80,6 +81,6 @@ public class PlayerHealth : MonoBehaviour
     {
         morto = true;
         //Reiniciar a cena
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("TelaReiniciar");
     }
 }

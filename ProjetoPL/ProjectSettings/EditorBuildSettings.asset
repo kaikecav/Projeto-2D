@@ -11,9 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Fase1.unity
     guid: 61c53341c52e8fd4ba471ee4a8afff80
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/FaseTeste.unity
     guid: 79981428209f4fb43883a382ffd49d65
+  - enabled: 1
+    path: Assets/Scenes/TelaReiniciar.unity
+    guid: 49af83b7d97c8e748b3fbacd76b2727a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
