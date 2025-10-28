@@ -6,17 +6,20 @@ public class PizzaShooter : MonoBehaviour
     public GameObject pizzaQueijoPrefab;
     public GameObject pizzaCalabresaPrefab;
     public GameObject pizzaFrangoPrefab;
-    public GameObject pizzaMargueritaPrefab;
+    public GameObject pizzaMargueritaPrefab; 
+    public GameObject pizzaDocePrefab; 
+    public GameObject pizzaAbacaxiPrefab;
 
     [Header("Configurações de Tiro")]
     public Transform shootPoint;
     public float shootForce = 10f;
     private bool facingRight = true;
 
-    private InventoryManager inventoryManager;
+    private InventoryManager inventoryManager;  //variável de acesso ao script InventoryManager
 
     void Start()
     {
+        //acesso ao script InventoryManager dentro do jogo
         inventoryManager = GameObject.Find("Inventory Canva").GetComponent<InventoryManager>();
     }
 
@@ -24,6 +27,7 @@ public class PizzaShooter : MonoBehaviour
     {
         HandleFlip();
 
+        //Executa a função atirar ao apertar a tecla E
         if (Input.GetButtonDown("Fire1"))
         {
             Shoot();
@@ -32,6 +36,7 @@ public class PizzaShooter : MonoBehaviour
 
     void HandleFlip()
     {
+        //Gira o shootpoint de acordo com a direção do player
         float moveInput = Input.GetAxis("Horizontal");
         if (moveInput > 0 && !facingRight) Flip();
         else if (moveInput < 0 && facingRight) Flip();
@@ -39,6 +44,7 @@ public class PizzaShooter : MonoBehaviour
 
     void Flip()
     {
+        //Roda o player e seus filhos
         facingRight = !facingRight;
         Vector3 localScale = transform.localScale;
         localScale.x *= -1f;
@@ -47,6 +53,7 @@ public class PizzaShooter : MonoBehaviour
 
     void Shoot()
     {
+        //Checa se tem pizza selecionada
         if (inventoryManager.selectedSlot == null)
         {
             Debug.Log("Nenhuma pizza selecionada!");
@@ -55,26 +62,28 @@ public class PizzaShooter : MonoBehaviour
 
         ItemSlot slot = inventoryManager.selectedSlot;
 
-        // Checa se tem pizza suficiente
+        //Checa se tem pizza suficiente
         if (slot.quantity <= 0)
         {
             Debug.Log("Não há pizza suficiente neste slot!");
             return;
         }
 
+        //adquire as informações do prefab da pizza colhida e selecionada
         string pizzaName = slot.pizzaName;
         GameObject prefab = GetPizzaPrefab(pizzaName);
 
+        //Garantia contra bugs e erros
         if (prefab == null)
         {
             Debug.LogWarning("Prefab da pizza não encontrado para: " + pizzaName);
             return;
         }
 
-        // Instancia projétil
+        //Instancia projétil
         GameObject pizzaObj = Instantiate(prefab, shootPoint.position, Quaternion.identity);
 
-        // Adiciona Rigidbody2D se não tiver
+        //Adiciona Rigidbody2D se não tiver
         Rigidbody2D rb = pizzaObj.GetComponent<Rigidbody2D>();
         if (rb == null)
         {
@@ -86,7 +95,7 @@ public class PizzaShooter : MonoBehaviour
         float direction = facingRight ? 1f : -1f;
         rb.linearVelocity = new Vector2(direction * shootForce, 0f);
 
-        // Define o tipo da pizza no projétil
+        //Define o tipo da pizza no projétil
         PizzaProjectile proj = pizzaObj.GetComponent<PizzaProjectile>();
         if (proj == null)
         {
@@ -95,7 +104,7 @@ public class PizzaShooter : MonoBehaviour
         proj.pizzaTipo = pizzaName;
         proj.lifetime = 5f; // opcional: tempo de vida do projétil
 
-        // ⚡ Consome 1 unidade da pizza do inventário
+        //Consome 1 unidade da pizza do inventário
         slot.quantity--;
         slot.quantityText.text = slot.quantity.ToString();
         slot.BoxPizzaQuantityText.text = slot.quantity.ToString();
@@ -112,6 +121,7 @@ public class PizzaShooter : MonoBehaviour
             inventoryManager.DeselectAllSlots();
         }
     }
+    //Garante que independente da forma como seja escrito, ela vai ser corrigida e identificada
     GameObject GetPizzaPrefab(string pizzaName)
     {
         string name = pizzaName.ToLower().Replace(" ", "");
@@ -122,6 +132,8 @@ public class PizzaShooter : MonoBehaviour
             case "pizzacalabresa": return pizzaCalabresaPrefab;
             case "pizzafrango": return pizzaFrangoPrefab;
             case "pizzamarguerita": return pizzaMargueritaPrefab;
+            case "pizzadoce": return pizzaDocePrefab;
+            case "pizzaabacaxi": return pizzaAbacaxiPrefab;
             default: return null;
         }
     }

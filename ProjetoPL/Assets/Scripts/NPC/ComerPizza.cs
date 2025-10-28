@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+Ôªøusing System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -11,24 +11,27 @@ public class PizzaPedido
 public class ComerPizza : MonoBehaviour
 {
     [Header("Pedidos do NPC")]
-    public List<PizzaPedido> pedidos = new List<PizzaPedido>();
+    public List<PizzaPedido> pedidos = new List<PizzaPedido>();     //Cria uma lista com os pedidos dos NPC
 
     [Header("Sprites do NPC")]
     public Sprite triste;
     public Sprite feliz;
 
     [Header("Pedido Visual")]
-    public SpriteRenderer pedidoSpriteRenderer; // SpriteRenderer acima da cabeÁa do NPC
+    public SpriteRenderer pedidoSpriteRenderer; // SpriteRenderer acima da cabe√ßa do NPC
     public Sprite pizzaQueijoSprite;
     public Sprite pizzaCalabresaSprite;
     public Sprite pizzaFrangoSprite;
     public Sprite pizzaMargueritaSprite;
+    public Sprite pizzaDoceSprite;
+    public Sprite pizzaAbacaxiSprite;
 
     private SpriteRenderer spriteRenderer;
     private bool estaSatisfeito = false;
 
     void Start()
     {
+        //Adiciona o componente que faz a sprite do pedido aparecer
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null && triste != null)
             spriteRenderer.sprite = triste;
@@ -61,6 +64,12 @@ public class ComerPizza : MonoBehaviour
                     case "pizzamarguerita":
                         pedidoSpriteRenderer.sprite = pizzaMargueritaSprite;
                         break;
+                    case "pizzadoce":
+                        pedidoSpriteRenderer.sprite = pizzaDoceSprite;
+                        break;
+                    case "pizzaabacaxi":
+                        pedidoSpriteRenderer.sprite = pizzaAbacaxiSprite;
+                        break;
                     default:
                         pedidoSpriteRenderer.sprite = null;
                         break;
@@ -71,11 +80,19 @@ public class ComerPizza : MonoBehaviour
             }
         }
 
-        // Se n„o houver mais pizzas pendentes
+        // Se n√£o houver mais pizzas pendentes
         pedidoSpriteRenderer.gameObject.SetActive(false);
         estaSatisfeito = true;
+
         if (spriteRenderer != null && feliz != null)
             spriteRenderer.sprite = feliz;
+
+        // ‚úÖ Se for inimigo e estiver satisfeito, desaparece
+        if (CompareTag("Inimigo"))
+        {
+            // pode colocar um pequeno delay se quiser ver o sprite feliz antes de sumir
+            Destroy(gameObject, 0.8f);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -91,7 +108,7 @@ public class ComerPizza : MonoBehaviour
                     pizza.pizzaTipo.ToLower().Replace(" ", "") ==
                     pedido.pizzaTipo.ToLower().Replace(" ", ""))
                 {
-                    // Entrega v·lida
+                    // Entrega v√°lida
                     pedido.quantidadeNecessaria--;
                     Destroy(other.gameObject);
                     Debug.Log($"{gameObject.name} recebeu uma {pizza.pizzaTipo}. Faltam {pedido.quantidadeNecessaria} desse tipo");
@@ -101,7 +118,7 @@ public class ComerPizza : MonoBehaviour
                 }
             }
 
-            // Pizza n„o desejada
+            // Pizza n√£o desejada
             Debug.Log($"{gameObject.name} recusou a {pizza.pizzaTipo}");
         }
     }

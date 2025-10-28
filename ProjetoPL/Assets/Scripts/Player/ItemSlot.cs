@@ -7,37 +7,38 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
 
     //ITEM DATA 
-    public string pizzaName;
-    public int quantity;
-    public Sprite pizzaSprite;
-    public bool isFull;
-    public Sprite emptySprite;
+    public string pizzaName;    //variável que determina o nome da pizza
+    public int quantity;    //variável que determina a quantidade da pizza
+    public Sprite pizzaSprite;  //variável que determina a imagem/sprite da pizza
+    public bool isFull; 
+    public Sprite emptySprite;  //variável que determina a imagem/sprite caso não haja pizza
 
     [SerializeField]
-    public int maxNumberOfItems;
+    public int maxNumberOfItems;    //variável que determina a quantidade máxima da pizza
 
     //ITEM SLOT
     [SerializeField]
-    public TMP_Text quantityText;
+    public TMP_Text quantityText;   //variável que mostra a quantidade da pizza
 
     [SerializeField]
-    public Image pizzaImage;
+    public Image pizzaImage;   //variável que mostra a imagem da pizza
 
     //ITEM SELECIONADO A MOSTRA NA CAIXA
-    public Image BoxPizzaImage;
+    public Image BoxPizzaImage;     //variável que mostra a imagem da pizza na HUD
     public TMP_Text BoxPizzaNameText;
-    public TMP_Text BoxPizzaQuantityText;
+    public TMP_Text BoxPizzaQuantityText;   //variável que mostra a quantidade da pizza na HUD
 
 
-
-    public GameObject selectedShader;
+    //Variável de seleção do slot
+    public GameObject selectedShader;   
     public bool thisItemSelected;
 
-    private InventoryManager inventoryManager;
+    private InventoryManager inventoryManager;      //variável de acesso ao script InventoryManager
 
 
     private void Start()
     {
+        //acesso ao script InventoryManager dentro do jogo
         inventoryManager = GameObject.Find("Inventory Canva").GetComponent<InventoryManager>();
     }
 
@@ -73,6 +74,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     }
 
 
+    //Função para funcionamento do click do mouse
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -87,11 +89,14 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnLeftClick()
     {
+        //deixa todos os slots desselecionados
         inventoryManager.DeselectAllSlots();
 
+        //Se o item está selecionado, então o panel mostra visualmente qual item está selecionado
         thisItemSelected = true;
         selectedShader.SetActive(true);
 
+        //Atualiza a Hud com o item selecionado
         BoxPizzaNameText.text = pizzaName;
         BoxPizzaImage.sprite = pizzaSprite;
         BoxPizzaQuantityText.text = quantity.ToString();
