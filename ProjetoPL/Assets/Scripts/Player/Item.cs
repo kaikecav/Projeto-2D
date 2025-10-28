@@ -4,23 +4,23 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     [SerializeField]
-    private string pizzaName;
+    private string pizzaName;   //variável que determina o nome da pizza
 
     [SerializeField]
-    private int quantity;
+    private int quantity;   //variável que determina a quantidade da pizza
 
     [SerializeField]
-    private Sprite pizzaSprite;
+    private Sprite pizzaSprite; //variável que determina a imagem/sprite da pizza
 
+    //Variável que permite usar o script InventoryManager neste script
     private InventoryManager inventoryManager;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //Encontra o script InventoryManager dentro do jogo
         inventoryManager = GameObject.Find("Inventory Canva").GetComponent<InventoryManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -28,8 +28,10 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Adiciona a função do player coletar a pizza
         if (collision.CompareTag("Player"))
         {
+            //Adiciona as variáveis da pizza no inventário
             int leftOverItems = inventoryManager.AddItem(pizzaName, quantity, pizzaSprite);
             if (leftOverItems <= 0)
             {
@@ -42,6 +44,7 @@ public class Item : MonoBehaviour
         }
     }
 
+    //auxilia o script ItemRespawn, garantindo que a pizza ira aparecer de novo
     IEnumerator Retorno(float tempo)
     {
         yield return new WaitForSeconds(tempo);

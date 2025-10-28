@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
 
     private bool morto = false; //evita que morra mais de uma vez
 
-    
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -47,7 +47,7 @@ public class PlayerHealth : MonoBehaviour
         //condição que indica qual o nível de vida
         for (int i = 0; i < heart.Length; i++)
         {
-            if(i<vida)
+            if (i < vida)
             {
                 heart[i].sprite = cheio;
             }

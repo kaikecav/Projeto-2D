@@ -73,7 +73,8 @@ public class PlayerMovement : MonoBehaviour
         //Faz o jogo ser resetado caso caia em um buraco
         if(chegar.gameObject.name == "Queda")
         {
-            Start();
+            //Reiniciar a cena
+            SceneManager.LoadScene("TelaReiniciar");
         }
     }
 
