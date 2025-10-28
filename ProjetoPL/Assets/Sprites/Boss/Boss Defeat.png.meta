@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 93375f5beeb3ba64bbb67bc000faeaa0
+guid: 5f5c1a10d981a5e4e8479cd5ed4bbdc8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4252993528556822551
-    second: Pizza abacaxi_0
+      213: -3690023276706391321
+    second: Boss Defeat_0
+  - first:
+      213: -2000353440426083292
+    second: Boss Defeat_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,12 +49,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 80
+  spritePixelsToUnits: 800
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Pizza abacaxi_0
+      name: Boss Defeat_0
       rect:
         serializedVersion: 2
-        x: 45
-        y: 45
-        width: 410
-        height: 410
+        x: 14
+        y: 15
+        width: 995
+        height: 1002
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7102aa5b41ba50b30800000000000000
-      internalID: 4252993528556822551
+      spriteID: 7ea1ef261676accc0800000000000000
+      internalID: -3690023276706391321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Defeat_1
+      rect:
+        serializedVersion: 2
+        x: 855
+        y: 117
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42c3c2ee4215d34e0800000000000000
+      internalID: -2000353440426083292
       vertices: []
       indices: 
       edges: []
@@ -125,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Pizza abacaxi_0: 4252993528556822551
+      Boss Defeat_0: -3690023276706391321
+      Boss Defeat_1: -2000353440426083292
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

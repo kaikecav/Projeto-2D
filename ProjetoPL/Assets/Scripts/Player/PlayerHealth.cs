@@ -35,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    void HealthLogic()
+    public void HealthLogic()
     {
 
         //determina que a vida máxima não é ultrapassada
