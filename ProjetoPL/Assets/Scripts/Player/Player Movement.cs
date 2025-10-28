@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        transform.position = new Vector3 (-22f, -2.8f, 0f);     //Faz o player voltar para a poisição inicial
+        transform.position = new Vector3 (-22f, -3f, 0f);     //Faz o player voltar para a poisição inicial
         
         rig = GetComponent<Rigidbody2D>();
         rig.freezeRotation = true;

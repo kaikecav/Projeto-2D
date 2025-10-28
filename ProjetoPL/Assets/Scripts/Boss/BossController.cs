@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // <- Import necess�rio para mudar de cena
+using UnityEngine.SceneManagement; // <- Import necessário para mudar de cena
 
 public class BossController : MonoBehaviour
 {
@@ -7,13 +7,13 @@ public class BossController : MonoBehaviour
     public float moveSpeed = 2f;
     private bool movingRight = true;
 
-    [Header("Detec��o de ambiente")]
+    [Header("Detecção de ambiente")]
     public Transform groundCheck;
     public Transform wallCheck;
     public LayerMask groundLayer;
     public float checkDistance = 0.5f;
 
-    [Header("Detec��o do Jogador")]
+    [Header("Detecção do Jogador")]
     public float detectionRange = 6f;
     private Transform player;
     private bool chasingPlayer = false;
@@ -21,7 +21,7 @@ public class BossController : MonoBehaviour
     [Header("Ataque")]
     public GameObject projectilePrefab;
     public Transform firePoint;
-    public float attackCooldown = 2f;
+    public float attackCooldown = 5f;
     private float attackTimer = 0f;
 
     [Header("Sprites / Estados")]
@@ -109,7 +109,7 @@ public class BossController : MonoBehaviour
             tiro.SetTarget(player);
         }
 
-        // Retorna pro estado de Idle ap�s pequeno delay
+        // Retorna pro estado de Idle após pequeno delay
         Invoke(nameof(ReturnToIdle), 0.5f);
     }
 
@@ -118,7 +118,7 @@ public class BossController : MonoBehaviour
         if (!isDead) SetState(BossState.Idle);
     }
 
-    // === DETEC��O DE CH�O E PAREDE ===
+    // === DETECÇÃO DE CHÃO E PAREDE ===
     void CheckEnvironment()
     {
         RaycastHit2D groundInfo = Physics2D.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
@@ -182,7 +182,7 @@ public class BossController : MonoBehaviour
         rb.isKinematic = true;
         GetComponent<Collider2D>().enabled = false;
 
-        // Aguarda 1,5 segundos para mudar a cena (tempo da anima��o de morte)
+        // Aguarda 1,5 segundos para mudar a cena (tempo da animação de morte)
         Invoke(nameof(CarregarTelaVitoria), 1.5f);
     }
 

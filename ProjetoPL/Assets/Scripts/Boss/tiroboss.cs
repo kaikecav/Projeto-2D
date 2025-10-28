@@ -63,21 +63,22 @@ public class tiroboss : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("tiroboss colidiu com: " + collision.gameObject.name);
+
         if (collision.CompareTag("Player"))
         {
-            // Aplica dano
             PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
-                
+                playerHealth.HealthLogic();
+                playerHealth.vida--;
+                Debug.Log("Jogador levou dano do tiro!");
             }
 
-            Destroy(gameObject); // destr�i o proj�til ao atingir o jogador
-            Debug.Log("Jogador atingido!");
+            Destroy(gameObject);
         }
         else if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            // Destr�i ao atingir o ch�o ou parede (opcional)
             Destroy(gameObject);
         }
     }
