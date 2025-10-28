@@ -69,7 +69,7 @@ public class tiroboss : MonoBehaviour
             PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
-                playerHealth.HealthLogic(damage);
+                
             }
 
             Destroy(gameObject); // destr�i o proj�til ao atingir o jogador
