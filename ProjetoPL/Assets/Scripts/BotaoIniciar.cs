@@ -17,5 +17,6 @@ public class BotaoIniciar : MonoBehaviour
     {
         Debug.Log("Sair do jogo");
         Application.Quit();
+        Debug.Log("Jogo fechado");
     }
 }
