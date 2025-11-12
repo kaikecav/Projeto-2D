@@ -20882,7 +20882,7 @@ MonoBehaviour:
   isInteracting: 0
   conditionalItem: {fileID: 0}
   item: {fileID: 11400000, guid: 3a111b86e2b39874bac50a4df0da367f, type: 2}
-  lampManager: {fileID: 0}
+  lampManager: {fileID: 728103557}
   recuperaSanidade:
     m_PersistentCalls:
       m_Calls: []
