@@ -7838,7 +7838,7 @@ MonoBehaviour:
   duracaoPiscada: 0.3
   intervaloMinimo: 4
   intervaloMaximo: 9
-  luzVisual: {fileID: 1392576616}
+  luzVisual: {fileID: 0}
   sanityManager: {fileID: 1343928291}
 --- !u!65 &728103558
 BoxCollider:
@@ -18891,7 +18891,7 @@ MonoBehaviour:
   maxChromatic: 1
   maxGrain: 1
   maxDistortion: -0.5
-  lampManager: {fileID: 728103557}
+  lampManager: {fileID: 0}
   jumpscarePanel: {fileID: 0}
   jumpscareVideo: {fileID: 0}
   delayBeforeJumpscare: 1
@@ -19307,7 +19307,7 @@ MonoBehaviour:
   maxChromatic: 1
   maxGrain: 1
   maxDistortion: -0.5
-  lampManager: {fileID: 728103557}
+  lampManager: {fileID: 0}
   jumpscarePanel: {fileID: 2012894810}
   jumpscareVideo: {fileID: 829136506}
   delayBeforeJumpscare: 1
@@ -22291,7 +22291,7 @@ MonoBehaviour:
   isInteracting: 0
   conditionalItem: {fileID: 0}
   item: {fileID: 11400000, guid: 3a111b86e2b39874bac50a4df0da367f, type: 2}
-  lampManager: {fileID: 728103557}
+  lampManager: {fileID: 0}
   recuperaSanidade:
     m_PersistentCalls:
       m_Calls: []
