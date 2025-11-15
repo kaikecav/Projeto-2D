@@ -11,8 +11,8 @@ public class EntitySpawn : MonoBehaviour
     public GameObject entityObject;
 
     [Header("Tempo para spawnar")]
-    public float minTime = 60f;
-    public float maxTime = 120f;
+    public float minTime = 30f;
+    public float maxTime = 60f;
 
     [Header("Sanidade")]
     public SanityManager sanityManager;

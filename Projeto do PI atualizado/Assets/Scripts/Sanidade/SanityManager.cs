@@ -1,13 +1,17 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
+using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 public class SanityManager : MonoBehaviour
 {
-    //VARI¡VEIS
+    // =============================
+    // VARI√ÅVEIS DE SANIDADE
+    // =============================
     [Header("Slider de Sanidade")]
     public Slider sanitySlider;
     public int fullSanity = 12000;
@@ -16,13 +20,13 @@ public class SanityManager : MonoBehaviour
     [Header("URP Global Volume")]
     public Volume volume;
 
-    //Efeitos URP
+    // Efeitos URP
     private Vignette vignette;
     private ChromaticAberration chromatic;
     private FilmGrain grain;
     private LensDistortion distortion;
 
-    [Header("Valores M·ximos dos Efeitos")]
+    [Header("Valores M√°ximos dos Efeitos")]
     public float maxVignette = 1f;
     public float maxChromatic = 1f;
     public float maxGrain = 1f;
@@ -35,27 +39,45 @@ public class SanityManager : MonoBehaviour
     [Header("Lampada")]
     public LampManager lampManager;
 
+    // =============================
+    // JUMPSCARE / GAME OVER CUSTOM
+    // =============================
+    [Header("Jumpscare")]
+    public GameObject jumpscarePanel;        // painel que cont√©m o v√≠deo
+    public VideoPlayer jumpscareVideo;       // componente VideoPlayer
+    public float delayBeforeJumpscare = 1f;  // tempo antes de aparecer o painel
+    public float delayAfterVideo = 0.5f;     // tempo ap√≥s o v√≠deo terminar
+    public string menuSceneName = "Menu(provisorio)";    // nome da cena do menu
+
     public UnityEvent onInsane;
 
     void Start()
     {
-        //Pega cada elemento da URP salvo
+        // Recupera os efeitos no Volume
         volume.profile.TryGet(out vignette);
         volume.profile.TryGet(out chromatic);
         volume.profile.TryGet(out grain);
         volume.profile.TryGet(out distortion);
 
-        //Tenta pegar o Slider
+        // Configura slider
         if (sanitySlider == null)
             sanitySlider = GetComponent<Slider>();
 
-        sanitySlider.maxValue = fullSanity; //Valor m·ximo da sanidade
-        sanitySlider.value = fullSanity;    //Inicia com o valor da sanidade seno o valor m·ximo
+        sanitySlider.maxValue = fullSanity;
+        sanitySlider.value = fullSanity;
 
         ResetEffects();
+
+        // Certifica que o painel come√ßa desligado
+        if (jumpscarePanel != null)
+            jumpscarePanel.SetActive(false);
+
+        // Prepara evento do VideoPlayer
+        if (jumpscareVideo != null)
+            jumpscareVideo.loopPointReached += OnVideoFinished;
     }
 
-    //FUN«√O PARA RESETAR OS EFEITOS AO ESTADO INICIAL
+    // Reset dos efeitos
     void ResetEffects()
     {
         if (vignette != null) vignette.intensity.value = 0f;
@@ -64,14 +86,14 @@ public class SanityManager : MonoBehaviour
         if (distortion != null) distortion.intensity.value = 0f;
     }
 
-    //FUN«√O PARA INICIAR A PERDA DE SANIDADE
+    // Inicia perda de sanidade
     public void StartLosingSanity()
     {
         if (!isLosingSanity)
             sanityRoutine = StartCoroutine(LoseSanity());
     }
 
-    //FUN«√O PARA PARAR DE PERDER SANIDADE
+    // Para perda de sanidade
     public void StopLosingSanity()
     {
         if (isLosingSanity && sanityRoutine != null)
@@ -82,13 +104,10 @@ public class SanityManager : MonoBehaviour
         }
     }
 
-    //FUN«√O QUE EXECUTA A PERDA DE SANIDADE
     IEnumerator LoseSanity()
     {
-        //Se estiver ativado
         isLosingSanity = true;
 
-        //Enquanto a sanidade for maior que 0, comeÁa a perder a sanidade
         while (sanitySlider.value > 0)
         {
             sanitySlider.value -= 2f * difficulty * Time.deltaTime * 10f;
@@ -101,13 +120,15 @@ public class SanityManager : MonoBehaviour
             yield return null;
         }
 
-        //Se estiver louco, ou seja, sanidade zerada
+        // SANIDADE ZERADA ‚Üí INICIA SEQU√äNCIA
         onInsane.Invoke();
+        StartCoroutine(InsanitySequence());
+
         isLosingSanity = false;
         sanityRoutine = null;
     }
 
-    //FUN«√O PARA APLICAR OS EFEITOS
+    // Aplica os efeitos URP
     void ApplyEffects(float p)
     {
         if (vignette != null)
@@ -123,9 +144,37 @@ public class SanityManager : MonoBehaviour
             distortion.intensity.value = Mathf.Lerp(0f, maxDistortion, p);
     }
 
-    //FUN«√O PARA QUE OUTROS ASSETS AFETEM A SANIDADE
+    // Para outros scripts alterarem a sanidade
     public void AffectSanity(float value)
     {
         sanitySlider.value = Mathf.Clamp(sanitySlider.value + value, 0, sanitySlider.maxValue);
+    }
+
+    // =============================
+    //  SEQU√äNCIA FINAL (JUMPSCARE)
+    // =============================
+    IEnumerator InsanitySequence()
+    {
+        // Espera inicial (antes de mostrar o painel)
+        yield return new WaitForSeconds(delayBeforeJumpscare);
+
+        // Liga o painel
+        jumpscarePanel.SetActive(true);
+
+        // Come√ßa o v√≠deo
+        if (jumpscareVideo != null)
+            jumpscareVideo.Play();
+    }
+
+    // Chamado automaticamente quando o v√≠deo termina
+    private void OnVideoFinished(VideoPlayer vp)
+    {
+        StartCoroutine(LoadMenuAfterDelay());
+    }
+
+    IEnumerator LoadMenuAfterDelay()
+    {
+        yield return new WaitForSeconds(delayAfterVideo);
+        SceneManager.LoadScene(menuSceneName);
     }
 }

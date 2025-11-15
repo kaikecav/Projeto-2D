@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8a5f9dc5bc55b6438562dd52d750d04, type: 3}
-  m_Name: Omnitrix
+  m_Name: Folha Resposta
   m_EditorClassIdentifier: 
-  itemID: Porta_retrato
-  itemName: Porta retrato
+  itemID: folha_resposta
+  itemName: Folha Resposta
   itemImage: {fileID: 21300000, guid: 8060c90465987a64aadf1fd7502a3d24, type: 3}
-  description: "T\xE1 na hora de virar her\xF3i"
+  description: Senha da maleta 624

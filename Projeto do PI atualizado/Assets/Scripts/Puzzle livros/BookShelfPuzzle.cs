@@ -3,9 +3,14 @@ using System.Collections.Generic;
 
 public class BookShelfPuzzle : MonoBehaviour
 {
-    public List<Transform> livros;         // Lista com os livros
-    public List<string> ordemCorreta;      // Nomes dos livros na ordem certa
-    public GameObject folhaRespostas;      // Folha que aparece no final
+    [Header("Livros na estante (arraste TODOS aqui em qualquer ordem)")]
+    public List<Transform> livros;
+
+    [Header("Ordem correta (arraste os livros NA ORDEM CERTA)")]
+    public List<Transform> ordemCorreta;
+
+    [Header("Folha de respostas que aparece quando completa")]
+    public GameObject folhaRespostas;
 
     private BookClick primeiroSelecionado;
     private BookClick segundoSelecionado;
@@ -16,68 +21,82 @@ public class BookShelfPuzzle : MonoBehaviour
             folhaRespostas.SetActive(false);
     }
 
+    // Chamado pelo BookClick quando o livro é clicado
     public void SelecionarLivro(BookClick livroClicado)
     {
-        // 1º clique — seleciona o primeiro livro
+        // Primeiro clique
         if (primeiroSelecionado == null)
         {
             primeiroSelecionado = livroClicado;
-            livroClicado.transform.localScale *= 1.1f; // destaca o livro
+
+            // destaque visual
+            primeiroSelecionado.transform.localScale *= 1.1f;
+
             Debug.Log($"Selecionou {livroClicado.name}");
+            return;
         }
-        // 2º clique — troca com o primeiro
-        else if (segundoSelecionado == null && livroClicado != primeiroSelecionado)
+
+        // Segundo clique (não pode clicar o mesmo)
+        if (livroClicado != primeiroSelecionado)
         {
             segundoSelecionado = livroClicado;
-            Debug.Log($"Selecionou {livroClicado.name} pra trocar");
+            Debug.Log($"Selecionou {livroClicado.name} para trocar");
+
             TrocarLivros();
         }
     }
 
     void TrocarLivros()
     {
-        // Troca de posição
+        // troca as posições
         Vector3 posTemp = primeiroSelecionado.transform.position;
         primeiroSelecionado.transform.position = segundoSelecionado.transform.position;
         segundoSelecionado.transform.position = posTemp;
 
         Debug.Log($"🔁 Trocou {primeiroSelecionado.name} com {segundoSelecionado.name}");
 
-        // Tira destaque
+        // Remove destaque
         primeiroSelecionado.transform.localScale /= 1.1f;
         segundoSelecionado.transform.localScale /= 1.1f;
 
-        // Limpa seleção
+        // limpando seleção
         primeiroSelecionado = null;
         segundoSelecionado = null;
 
-        // Verifica se está na ordem correta
+        // verifica se o puzzle está correto
         VerificarOrdem();
     }
 
     void VerificarOrdem()
     {
-        // Ordena os livros da esquerda pra direita (menor X primeiro)
         List<Transform> livrosOrdenados = new List<Transform>(livros);
         livrosOrdenados.Sort((a, b) => a.position.x.CompareTo(b.position.x));
+
+        Debug.Log("=== ORDEM DETECTADA ===");
+        for (int i = 0; i < livrosOrdenados.Count; i++)
+            Debug.Log($"Pos {i}: {livrosOrdenados[i].name}");
+
+        Debug.Log("=== ORDEM CORRETA ESPERADA ===");
+        for (int i = 0; i < ordemCorreta.Count; i++)
+            Debug.Log($"Pos {i}: {ordemCorreta[i].name}");
 
         bool tudoCerto = true;
 
         for (int i = 0; i < livrosOrdenados.Count; i++)
         {
-            if (livrosOrdenados[i].name != ordemCorreta[i])
+            if (livrosOrdenados[i] != ordemCorreta[i])
             {
                 tudoCerto = false;
+                Debug.Log($"❌ Erro na posição {i}: {livrosOrdenados[i].name} != {ordemCorreta[i].name}");
                 break;
             }
         }
 
         if (tudoCerto)
         {
-            Debug.Log("🎯 Puzzle completo!");
+            Debug.Log("🎯🎯🎯 PUZZLE COMPLETO! 🎯🎯🎯");
             if (folhaRespostas != null)
                 folhaRespostas.SetActive(true);
         }
     }
-
 }

@@ -11,8 +11,8 @@ public class PCPuzzle : MonoBehaviour
     [SerializeField] private UnityEvent _evento;
 
     [Header("Objetos do puzile")]
-    [SerializeField] private GameObject _bookshelfInterativo;
-    [SerializeField] private GameObject _bookshelf;
+    [SerializeField] private GameObject _pcInterativo;
+    [SerializeField] private GameObject _pc;
     [SerializeField] private GameObject _vc;
 
     [Header("Rotação da Sala")]
@@ -61,8 +61,8 @@ public class PCPuzzle : MonoBehaviour
             rotacaoDaSala.RestaurarParedesPadrao();
         }
 
-        _bookshelfInterativo.SetActive(true);
-        _bookshelf.SetActive(false);
+        _pcInterativo.SetActive(true);
+        _pc.SetActive(false);
         _vc.SetActive(false);
         _puzzlesStarts = false;
     }
@@ -79,8 +79,8 @@ public class PCPuzzle : MonoBehaviour
         _vc.SetActive(true);
         yield return null;      // Aguarda 1 frame para validar posição
         yield return new WaitForSeconds(0.5f);
-        _bookshelfInterativo.SetActive(false);
-        _bookshelf.SetActive(true);
+        _pcInterativo.SetActive(false);
+        _pc.SetActive(true);
         _puzzlesStarts = true;
 
         //JUMPSCARE
