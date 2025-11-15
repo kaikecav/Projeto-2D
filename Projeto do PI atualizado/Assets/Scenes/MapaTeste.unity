@@ -16666,7 +16666,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1160612544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19901,6 +19901,7 @@ MonoBehaviour:
   panelCarta: {fileID: 108002539}
   inputSenha: {fileID: 1579117069}
   feedbackText: {fileID: 1043320753}
+  btnConfirmar: {fileID: 506440821}
   senhaCorreta: 1234
 --- !u!4 &1448935298
 Transform:
