@@ -11,6 +11,8 @@ public class LampManager : MonoBehaviour
     public float intervaloMinimo = 10f;
     public float intervaloMaximo = 60f;
     public GameObject luzVisual;
+    public GameObject lamp;
+    public GameObject lampBroken;
 
     [Header("Referência de Sanidade")]
     public SanityManager sanityManager;
@@ -53,11 +55,13 @@ public class LampManager : MonoBehaviour
 
         //Lâmpada apaga permanentemente
         AlternarLuz(false);
+
         apagada = true;
         sanityManager.StartLosingSanity();
 
         yield return new WaitForSeconds(0.2f);
-        gameObject.SetActive(false);
+        lamp.SetActive(false);
+        lampBroken.SetActive(true);
     }
 
     //FUNÇÃO PARA MUDAR O ESTADO DA LUZ
@@ -81,7 +85,8 @@ public class LampManager : MonoBehaviour
         if (!apagada) return;
 
         //Ativa a Lâmpada e a luz e faz parar de perder sanidade
-        gameObject.SetActive(true);
+        lamp.SetActive(true);
+        lampBroken.SetActive(false);
         apagada = false;
         AlternarLuz(true);
         sanityManager.StopLosingSanity();

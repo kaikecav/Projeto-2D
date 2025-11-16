@@ -8,8 +8,8 @@ public class Door : Interactable
     [Tooltip("A porta está trancada no início?")]
     public bool isLocked = true;
 
-    [Tooltip("ID da Chave. Deve ser o mesmo 'Item' ScriptableObject do Inventory.")]
-    // O campo 'conditionalItem' que você definiu na base será a sua CHAVE.
+    [Header("Áudio da Porta")]
+    public AudioSource audioSource;  // o som da porta abrindo
 
     public UnityEvent doorOpen;
 
@@ -17,44 +17,44 @@ public class Door : Interactable
     {
         if (isLocked)
         {
-            // Pega o item ATUALMENTE SELECIONADO (que agora deve conter a chave)
             Item selectedItem = Inventory.instance.GetSelectedItem();
 
-            // Checagem: O item selecionado é a chave correta?
             if (selectedItem != null && selectedItem == conditionalItem)
             {
-                // SUCESSO - ABERTO!
                 Inventory.instance.RemoveItem(conditionalItem);
                 OpenDoor();
             }
             else
             {
-                // FALHA: (selectedItem é nulo ou o item errado)
                 Debug.Log("Porta trancada. Encontre a chave da porta!");
             }
         }
-        // ... (OpenDoor continua igual)
+        else
+        {
+            OpenDoor();
+        }
     }
 
     private void OpenDoor()
     {
         isLocked = false;
 
-        // Se a porta for um modelo/item que precisa ser "sumido":
-        // gameObject.SetActive(false); 
-
-        // Se o objetivo é que o jogador possa passar por ela:
-        // Desativar o Collider de bloqueio:
-        Collider doorCollider = GetComponent<Collider>();
-        if (doorCollider != null)
-        {
-            doorCollider.enabled = false;
-        }
+        // TOCA O SOM
+        if (audioSource != null)
+            audioSource.Play();
 
         Debug.Log("Porta destrancada e liberada!");
 
-        Destroy(gameObject);
+        // LIBERA PASSAGEM (desativa o collider)
+        Collider doorCollider = GetComponent<Collider>();
+        if (doorCollider != null)
+            doorCollider.enabled = false;
 
+        // TORNA A PORTA INVISÍVEL (SEM DESTRUIR)
+        foreach (var mesh in GetComponentsInChildren<MeshRenderer>())
+            mesh.enabled = false;
+
+        // Caso tenha animação ou eventos extras
         doorOpen.Invoke();
     }
 }
