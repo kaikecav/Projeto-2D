@@ -48,18 +48,24 @@ public class MaletaPuzzle : MonoBehaviour
     private int _cilindro03Step = 0;
     [SerializeField] private GameObject _cilindro03;
 
-    
 
     private string _cilindro01Numer = "";
     private string _cilindro02Numer = "";
     private string _cilindro03Numer = "";
-    
 
     private Animator anim;
 
+    // ============================================================
+    // SOM DA MALETA (ADICIONADO)
+    // ============================================================
+    [Header("Som da Maleta")]
+    public AudioSource somAbrir;     // som da maleta abrindo
+    public AudioSource somErro;      // som erro do cadeado (opcional)
+    // ============================================================
+
+
     void Start()
     {
-
 
     }
 
@@ -142,12 +148,20 @@ public class MaletaPuzzle : MonoBehaviour
         {
             StartCoroutine("PuzzleCompleto");
             Debug.Log("O puzzle está completo! código: " + enteredCode);
-            //audio sound effect = cadeado abrindo
+
+            // ============================================================
+            // SOM DA MALETA - ABRINDO (ADICIONADO)
+            // ============================================================
+            if (somAbrir != null)
+                somAbrir.Play();
         }
         else
         {
             Debug.Log("Código incorreto! código: " + _codigoPuzzle + " // o que vc colocou: " + enteredCode);
-            //audio sound effect = cadeado emperrado
+
+            // SOM ERRO DO CADEADO
+            if (somErro != null)
+                somErro.Play();
         }
     }
 
@@ -166,7 +180,7 @@ public class MaletaPuzzle : MonoBehaviour
                 break;
             case 3:
                 _cilindro01Numer = "7";
-                break;  
+                break;
             case 4:
                 _cilindro01Numer = "6";
                 break;
@@ -178,7 +192,7 @@ public class MaletaPuzzle : MonoBehaviour
                 break;
             case 7:
                 _cilindro01Numer = "3";
-                break;  
+                break;
             case 8:
                 _cilindro01Numer = "2";
                 break;
@@ -189,7 +203,6 @@ public class MaletaPuzzle : MonoBehaviour
                 _cilindro01Numer = "0";
                 break;
         }
-        // Debug.Log("O cilindro é " + _cilindrodeAgr + " O número é " + _cilindro01Numero + " e o case é " + _cilindro01Step + " Angulação é " + _cilindro01Step * 35);
         CodigoCheck();
     }
     public void ValordeCilindro02()
@@ -216,11 +229,11 @@ public class MaletaPuzzle : MonoBehaviour
                 break;
             case 6:
                 _cilindro02Numer = "4";
-                break;  
+                break;
             case 7:
                 _cilindro02Numer = "3";
                 break;
-            case 8: 
+            case 8:
                 _cilindro02Numer = "2";
                 break;
             case 9:
@@ -230,7 +243,6 @@ public class MaletaPuzzle : MonoBehaviour
                 _cilindro02Numer = "0";
                 break;
         }
-        //  Debug.Log("O cilindro é " + _cilindrodeAgr + " O número é " + _cilindro02Numero + " e o case é " + _cilindro02Step + " Angulação é " + _cilindro02Step * 35);
         CodigoCheck();
     }
     public void ValordeCilindro03()
@@ -271,7 +283,6 @@ public class MaletaPuzzle : MonoBehaviour
                 _cilindro03Numer = "0";
                 break;
         }
-        //  Debug.Log("O cilindro é " + _cilindrodeAgr + " O número é " + _cilindro03Numero + " e o case é " + _cilindro03Step + " Angulação é " + _cilindro03Step * 35);
         CodigoCheck();
     }
 
@@ -316,7 +327,6 @@ public class MaletaPuzzle : MonoBehaviour
         _maletaPuzzle.SetActive(false);
         _vc.SetActive(false);
         _puzzlesStarts = false;
-
     }
 
     IEnumerator PuzzleStart()
@@ -350,22 +360,20 @@ public class MaletaPuzzle : MonoBehaviour
                     Debug.Log("[JUMPSCARE] Sucesso");
                     yield return entitySpawn.TriggerJumpscare();
                 }
-                //Se não, sem jumpscare
                 else
                 {
                     Debug.Log("[JUMPSCARE] Falhou");
                 }
             }
-            //Se ela estiver em outro puzzle
             else
             {
                 Debug.Log("[JUMPSCARE] Entidade não está no spawn deste puzzle.");
             }
         }
-        // Pequena espera antes do pause
+
         yield return new WaitForSecondsRealtime(0.1f);
 
-        // Agora pausa o jogo
         GameManager.Instance.PauseGame();
     }
 }
+

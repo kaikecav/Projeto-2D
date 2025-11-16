@@ -27,44 +27,44 @@ public class EntitySpawn : MonoBehaviour
     [Header("Painel do jumpscare")]
     public GameObject jumpscarePanel;
 
+    // ======================================================
+    // SOM DA ENTIDADE (ADICIONADO)
+    // ======================================================
+    [Header("Som da entidade aparecendo")]
+    public AudioSource somAparece;
+    // ======================================================
+
     private Transform lastPoint;
-    public Transform currentSpawnPoint { get; private set; }    //Verifica em qual spawn a entidade está
+    public Transform currentSpawnPoint { get; private set; }
+
 
     void Start()
     {
-        //Inicia todo o sistema
         StartCoroutine(MainRoutine());
     }
 
-    //FUNÇÃO PRINCIPAL
     private IEnumerator MainRoutine()
     {
-        //Enquanto essa função for verdadeira
         while (true)
         {
-            float sanityPercent = GetSanityPercent();   //Indica a porcentagem da sanidade através do GetSanityPercent
+            float sanityPercent = GetSanityPercent();
 
-            //Mantém o Modo Fúria se a sanidade estiver menor ou igual a 10%
             if (sanityPercent >= 0.90f && furyModeEnabled)
             {
                 yield return FuryMode();
                 continue;
             }
 
-            //Decisão de quanto tempo para spawnar
             float espera = Random.Range(minTime, maxTime);
             yield return DynamicWait(espera, "[Espera]");
 
-            TeleportEntity();
+            TeleportEntity(); // <--- AQUI A ENTIDADE SURGE
 
-            //Mantém ela ativa na cena entre 10 segundos a 30 segundos
             float activeMin = 10f;
             float activeMax = 30f;
 
-            //Faz a randomização do tempo baseado na sanidade
             float baseActive = Mathf.Lerp(activeMin, activeMax, sanityPercent);
             float activeTime = Random.Range(baseActive * 0.8f, baseActive * 1.2f);
-
 
             entityObject.SetActive(true);
 
@@ -74,39 +74,32 @@ public class EntitySpawn : MonoBehaviour
         }
     }
 
-    //MODO FÚRIA
     private IEnumerator FuryMode()
     {
         Debug.Log("[Fúria] Ativado");
 
         entityObject.SetActive(true);
 
-        //Enquanto a sanidade for menor ou igual a 10%, ativa o Modo Fúria
         while (GetSanityPercent() >= 0.90f)
         {
-            //Teleporta a entidade a cada 5 segundos
             TeleportEntity();
-            Debug.Log("[Fúria] Teleportando novamente em 5s");
 
+            Debug.Log("[Fúria] Teleportando novamente em 5s");
             yield return new WaitForSeconds(5f);
         }
 
         Debug.Log("[Fúria] Desativado — voltando ao comportamento normal.");
     }
 
-    //FUNÇÃO PARA A ESPERA DINÂMICA
     private IEnumerator DynamicWait(float targetTime, string debugLabel)
     {
         float elapsed = 0f;
 
-        //Determina o novo tempo de espera
         while (elapsed < targetTime)
         {
             yield return null;
 
-            //Usa a sanidade para determinar o novo tempo
             float sanityPercent = GetSanityPercent();
-            //Aumenta ou diminui a velocidade de acordo com a sanidade
             float speed = Mathf.Lerp(minTimeSpeed, maxTimeSpeed, sanityPercent);
 
             float acceleratedDelta = Time.deltaTime * speed;
@@ -116,14 +109,11 @@ public class EntitySpawn : MonoBehaviour
         Debug.Log($"{debugLabel} Finalizado.");
     }
 
-    //FUNÇÃO PARA TELEPORTAR A ENTIDADE
     private void TeleportEntity()
     {
-        //Escolhe um spawn aleatório
         Transform chosen = ChooseRandomPoint();
         currentSpawnPoint = chosen;
 
-        //Ativa a função seguindo a posição e a rotação
         entityObject.transform.SetPositionAndRotation(
             chosen.position,
             chosen.rotation
@@ -132,9 +122,17 @@ public class EntitySpawn : MonoBehaviour
         entityObject.transform.localScale = chosen.localScale;
 
         Debug.Log($"Teleportado para: {chosen.name}");
+
+        // ======================================================
+        // SOM DA ENTIDADE APARECENDO (ADICIONADO)
+        // ======================================================
+        if (somAparece != null)
+        {
+            somAparece.Play();
+        }
+        // ======================================================
     }
 
-    //FUNÇÃO PARA ESCOLHER OS SPAWNS
     private Transform ChooseRandomPoint()
     {
         if (spawnPoints.Length == 1)
@@ -149,49 +147,37 @@ public class EntitySpawn : MonoBehaviour
         return c;
     }
 
-    //FUNÇÃO PARA DETECTAR SE A ENTIDADE ESTÁ NO PUZZLE
     public bool IsEntityAt(Transform puzzlePoint)
     {
-
-        //Se o puzzlePoint não existir, alerta e não executa nada
         if (puzzlePoint == null)
         {
             Debug.LogWarning("PuzzlePoint está NULO!");
             return false;
         }
 
-        //Se o currentSpawnPoint não existir, alerta e não executa nada
         if (currentSpawnPoint == null)
         {
             Debug.Log("CurrentSpawnPoint ainda não definido.");
             return false;
         }
 
-        //Se tiver o currentSpawnPoint, determine para ele ser igual ao puzzlePoint
         return currentSpawnPoint == puzzlePoint;
     }
 
-    //FUNÇÃO PARA O SISTEMA DE JUMPSCARE
     public IEnumerator TriggerJumpscare()
     {
-
-        //Se o panel estiver desativado, ativa
         if (jumpscarePanel != null)
             jumpscarePanel.SetActive(true);
 
-        //Retira 2000 da sanidade
         if (sanityManager != null)
             sanityManager.AffectSanity(-2000);
 
-        //Mantém o Jumpscare por 1 segundo
         yield return new WaitForSecondsRealtime(1f);
 
-        //Se o panel estiver ativado, desativa
         if (jumpscarePanel != null)
             jumpscarePanel.SetActive(false);
     }
 
-    //FUNÇÃO PARA O VINCULO COM A SANIDADE
     private float GetSanityPercent()
     {
         float s = sanityManager.sanitySlider.value;
