@@ -145,7 +145,7 @@ RectTransform:
   m_GameObject: {fileID: 39858816}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1429331421}
@@ -159,8 +159,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 750}
+  m_AnchoredPosition: {x: 0.0050201, y: -0.0004077}
+  m_SizeDelta: {x: 1371.4, y: 772.13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &39858818
 MonoBehaviour:
@@ -1859,6 +1859,7 @@ MonoBehaviour:
   painelmenuinicial: {fileID: 257796667}
   painelopcoes: {fileID: 39858816}
   MenudoNewGame: {fileID: 1153163080}
+  PainelCreditos: {fileID: 0}
 --- !u!4 &973027497
 Transform:
   m_ObjectHideFlags: 0
@@ -3625,6 +3626,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1640943255}
   - component: {fileID: 1640943256}
+  - component: {fileID: 1640943257}
   m_Layer: 5
   m_Name: Slider (1)
   m_TagString: Untagged
@@ -3699,12 +3701,25 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2146397525}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
   m_Value: 0.251
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1640943257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640943254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da3568e8e23f0ff4399ada18ee85e21d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 1640943256}
 --- !u!1 &1709179672
 GameObject:
   m_ObjectHideFlags: 0

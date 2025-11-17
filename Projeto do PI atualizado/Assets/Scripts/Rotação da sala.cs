@@ -3,7 +3,7 @@ using UnityEngine;
 public class RotacaoDaSala : MonoBehaviour
 {
     [Header("Configurações de Rotação")]        //cria um "título no menu da Unity
-    [SerializeField] float dragRotationSpeed = 100f;     // Velocidade da movimentação com o mouse
+    [SerializeField] public float dragRotationSpeed = 100f;     // Velocidade da movimentação com o mouse
     [SerializeField] float smoothRotationSpeed = 300f;   // Velocidade da rotação com as setas
 
     [Header("Referências das Paredes")]     //cria um "título no menu da Unity
@@ -30,6 +30,8 @@ public class RotacaoDaSala : MonoBehaviour
 
     void Start()        //Determina tudo o que vai ocorrer no ínicio do jogo
     {
+        dragRotationSpeed = PlayerPrefs.GetFloat("DragRotationSpeed", dragRotationSpeed);//Carrega o valor salvo pelo slider
+
         currentSnapAngle = 0f;      //determina o ângulo inicial da sala
         targetRotation = Quaternion.Euler(0, currentSnapAngle, 0); //determina o tipo de rotação da sala, sendo feita através de ângulos
         transform.rotation = targetRotation;    //atualiza a rotação conforme o próximo ângulo
