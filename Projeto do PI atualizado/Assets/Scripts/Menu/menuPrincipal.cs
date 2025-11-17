@@ -8,6 +8,7 @@ public class menuPrincipal : MonoBehaviour
     [SerializeField] private GameObject painelmenuinicial;
     [SerializeField] private GameObject painelopcoes;
     [SerializeField] private GameObject MenudoNewGame;
+    [SerializeField] private GameObject PainelCreditos;
 
     // define o estado inicial do menu
     void Start()
@@ -15,6 +16,12 @@ public class menuPrincipal : MonoBehaviour
         painelmenuinicial.SetActive(true);
         painelopcoes.SetActive(false);
         MenudoNewGame.SetActive(false);
+
+        //Garante que o Painel de Créditos comece desativado
+        if (PainelCreditos != null) // Boa prática para evitar NullReferenceException
+        {
+            PainelCreditos.SetActive(false);
+        }
     }
 
     //função que determina se o menu do jogo vai ser ativado
@@ -38,6 +45,13 @@ public class menuPrincipal : MonoBehaviour
         painelmenuinicial.SetActive(true);       //ativa o painel
         MenudoNewGame.SetActive(false);          //desativa a função menunewgame
         painelopcoes.SetActive(false);           //  garante que opções também feche
+
+        //Garante que Créditos também feche
+        if (PainelCreditos != null)
+        {
+            PainelCreditos.SetActive(false);
+        }
+
     }
 
     //função que permite acessar o menu de opções do jogo ao pressionar o botão
@@ -60,5 +74,21 @@ public class menuPrincipal : MonoBehaviour
         Debug.Log("Sair");      //escreve no console o que foi solicitado
         Application.Quit();     //fecha o jogo
     }
-}
 
+    //Abre o painel de Créditos
+    public void AbrirCreditos()
+    {
+        painelmenuinicial.SetActive(false); // Desativa o menu principal
+        PainelCreditos.SetActive(true);    // Ativa o painel de Créditos
+        // Garante que outros painéis (Opções, NewGame) estejam desativados
+        painelopcoes.SetActive(false);
+        MenudoNewGame.SetActive(false);
+    }
+
+    //Fecha o painel de Créditos e volta ao menu principal
+    public void VoltarDoCreditos()
+    {
+        PainelCreditos.SetActive(false);   // Desativa o painel de Créditos
+        painelmenuinicial.SetActive(true); // Ativa o menu principal
+    }
+}
