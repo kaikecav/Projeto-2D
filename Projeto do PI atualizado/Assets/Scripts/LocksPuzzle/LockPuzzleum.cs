@@ -20,6 +20,8 @@ public class LockPuzzleum : MonoBehaviour
     [SerializeField] private GameObject _lockPuzzle;
     [SerializeField] private GameObject _vc;
     [SerializeField] private GameObject _Lock;
+    [SerializeField] private GameObject grFechado;
+    [SerializeField] private GameObject grAberto;
 
     [Header("Rotação da Sala")]
     [SerializeField] private RotacaoDaSala rotacaoDaSala;
@@ -60,6 +62,8 @@ public class LockPuzzleum : MonoBehaviour
     private string _cilindro04Numero = "";
 
     private Animator anim;
+    
+
 
 
     // Update is called once per frame
@@ -356,6 +360,8 @@ public class LockPuzzleum : MonoBehaviour
         _lockPuzzle.SetActive(false);
         _vc.SetActive(false);
         _puzzlesStarts = false;
+        grFechado.SetActive(false);
+        grAberto.SetActive(false);
     }
 
     IEnumerator PuzzleCompleto()
@@ -367,8 +373,14 @@ public class LockPuzzleum : MonoBehaviour
             rotacaoDaSala.enabled = true;
             rotacaoDaSala.RestaurarParedesPadrao();
         }
+        
         anim.SetTrigger("Aberto");
+        anim.SetTrigger("Afamkflmalk");
+        
         yield return new WaitForSeconds(1.0f);
+
+
+
         EndPuzzle();
 
     }
@@ -387,6 +399,9 @@ public class LockPuzzleum : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _lockInterativo.SetActive(false);
         _lockPuzzle.SetActive(true);
+
+        grFechado.SetActive(false);
+        grAberto.SetActive(true);        
         _puzzlesStarts = true;
 
         //JUMPSCARE
