@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class LampManager : MonoBehaviour
+public class LampManager : Interactable
 {
     [Header("Configurações da Lâmpada")]
     public float tempoMinimoAntesDePiscar = 60f;
@@ -85,6 +85,29 @@ public class LampManager : MonoBehaviour
     }
 
     public bool EstaApagada() => apagada;
+
+    public override void Interact()
+    {
+        if (apagada == true)
+        {
+            // Pega o item ATUALMENTE SELECIONADO (que agora deve conter a chave)
+            Item selectedItem = Inventory.instance.GetSelectedItem();
+
+            // Checagem: O item selecionado é a chave correta?
+            if (selectedItem != null && selectedItem == conditionalItem)
+            {
+                // SUCESSO - ABERTO!
+                Inventory.instance.RemoveItem(conditionalItem);
+                Reacender();
+            }
+            else
+            {
+                // FALHA: (selectedItem é nulo ou o item errado)
+                Debug.Log("Luz acesa ou não é uma lâmpada!");
+            }
+        }
+        // ... (OpenDoor continua igual)
+    }
 
     public void Reacender()
     {

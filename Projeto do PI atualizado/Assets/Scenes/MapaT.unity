@@ -488,12 +488,13 @@ MonoBehaviour:
   - {fileID: 619527367}
   - {fileID: 392326623}
   ordemCorreta:
-  - Livro2
-  - Livro1
-  - Livro3
-  - Livro4
-  - Livro5
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   folhaRespostas: {fileID: 946010620}
+  puxarOffset: 0.25
 --- !u!4 &18135028
 Transform:
   m_ObjectHideFlags: 0
@@ -530,6 +531,7 @@ MonoBehaviour:
   _bookshelfInterativo: {fileID: 1431754545}
   _bookshelf: {fileID: 396634820}
   _vc: {fileID: 1764870375}
+  shelfCollider: {fileID: 0}
   rotacaoDaSala: {fileID: 1709702750}
   entitySpawn: {fileID: 841025811}
   puzzleSpawnPoint: {fileID: 1192086549}
@@ -1145,13 +1147,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8daad238cf9658043b5384ede3541230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectType: 0
+  isInteracting: 0
+  conditionalItem: {fileID: 0}
   tempoMinimoAntesDePiscar: 5
   tempoMaximoAntesDePiscar: 10
   duracaoPiscada: 0.3
   intervaloMinimo: 4
   intervaloMaximo: 9
   luzVisual: {fileID: 1503948936}
+  lamp: {fileID: 0}
+  lampBroken: {fileID: 0}
   sanityManager: {fileID: 656849215}
+  somPiscar: {fileID: 0}
+  somApagar: {fileID: 0}
 --- !u!1 &112327974
 GameObject:
   m_ObjectHideFlags: 0
@@ -1199,14 +1208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e0dc158cea3784e8de617d908c4012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 0
-  isInteracting: 0
-  conditionalItem: {fileID: 0}
-  item: {fileID: 11400000, guid: 3a111b86e2b39874bac50a4df0da367f, type: 2}
-  lampManager: {fileID: 103354274}
-  recuperaSanidade:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!65 &112327977
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5830,6 +5831,7 @@ MonoBehaviour:
   maxTimeSpeed: 6
   furyModeEnabled: 1
   jumpscarePanel: {fileID: 1145417586}
+  somAparece: {fileID: 0}
 --- !u!1 &849855010
 GameObject:
   m_ObjectHideFlags: 0
@@ -6016,7 +6018,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 330585545}
+  virtualCameras: []
   clickRange: 100
+  precisionDistance: 3
+  debugRay: 0
 --- !u!4 &896405009
 Transform:
   m_ObjectHideFlags: 0
@@ -6085,6 +6090,7 @@ MonoBehaviour:
   _bookshelfInterativo: {fileID: 1064466518}
   _bookshelf: {fileID: 1501060976}
   _vc: {fileID: 44478547}
+  shelfCollider: {fileID: 0}
   rotacaoDaSala: {fileID: 1709702750}
   entitySpawn: {fileID: 841025811}
   puzzleSpawnPoint: {fileID: 803852847}
@@ -6727,6 +6733,7 @@ MonoBehaviour:
   _bookshelfInterativo: {fileID: 1511373819}
   _bookshelf: {fileID: 592897964}
   _vc: {fileID: 34573441}
+  shelfCollider: {fileID: 0}
   rotacaoDaSala: {fileID: 1709702750}
   entitySpawn: {fileID: 841025811}
   puzzleSpawnPoint: {fileID: 738867578}
@@ -7388,6 +7395,8 @@ MonoBehaviour:
   _cilindro01: {fileID: 0}
   _cilindro02: {fileID: 0}
   _cilindro03: {fileID: 0}
+  somAbrir: {fileID: 0}
+  somErro: {fileID: 0}
 --- !u!1 &1030968014
 GameObject:
   m_ObjectHideFlags: 0
@@ -8308,6 +8317,7 @@ MonoBehaviour:
   panelCarta: {fileID: 1094033445}
   inputSenha: {fileID: 714956462}
   feedbackText: {fileID: 1197298240}
+  btnConfirmar: {fileID: 0}
   senhaCorreta: 1234
 --- !u!1 &1192086548
 GameObject:
@@ -12002,6 +12012,7 @@ MonoBehaviour:
   isInteracting: 0
   conditionalItem: {fileID: 11400000, guid: 69c7de0f5a32ec84ba942defb5c841de, type: 2}
   isLocked: 1
+  audioSource: {fileID: 0}
   doorOpen:
     m_PersistentCalls:
       m_Calls:

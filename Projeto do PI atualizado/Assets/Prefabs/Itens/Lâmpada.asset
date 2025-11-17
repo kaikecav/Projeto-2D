@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: lampada
   itemName: "L\xE2mpada"
-  itemImage: {fileID: 0}
-  description: 
+  itemImage: {fileID: 21300000, guid: fcaffb20db479604e9df3089337949dc, type: 3}
+  description: "Traz a ilumina\xE7\xE3o."

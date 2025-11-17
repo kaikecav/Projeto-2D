@@ -15,6 +15,12 @@ public class BookShelfPuzzle : MonoBehaviour
     private BookClick primeiroSelecionado;
     private BookClick segundoSelecionado;
 
+    // posição original antes de puxar o livro
+    private Vector3 posOriginalPrimeiro;
+
+    // intensidade do puxão para frente
+    public float puxarOffset = 0.25f;
+
     void Start()
     {
         if (folhaRespostas != null)
@@ -29,8 +35,16 @@ public class BookShelfPuzzle : MonoBehaviour
         {
             primeiroSelecionado = livroClicado;
 
-            // destaque visual
-            primeiroSelecionado.transform.localScale *= 1.1f;
+            // salva posição original
+            posOriginalPrimeiro = primeiroSelecionado.transform.position;
+
+            // puxa o livro para frente (EIXO Z)
+            primeiroSelecionado.transform.position =
+                new Vector3(
+                    posOriginalPrimeiro.x,
+                    posOriginalPrimeiro.y,
+                    posOriginalPrimeiro.z - puxarOffset
+                );
 
             Debug.Log($"Selecionou {livroClicado.name}");
             return;
@@ -41,23 +55,21 @@ public class BookShelfPuzzle : MonoBehaviour
         {
             segundoSelecionado = livroClicado;
             Debug.Log($"Selecionou {livroClicado.name} para trocar");
-
             TrocarLivros();
         }
     }
 
     void TrocarLivros()
     {
-        // troca as posições
+        // volta o livro selecionado para sua posição original
+        primeiroSelecionado.transform.position = posOriginalPrimeiro;
+
+        // troca posições
         Vector3 posTemp = primeiroSelecionado.transform.position;
         primeiroSelecionado.transform.position = segundoSelecionado.transform.position;
         segundoSelecionado.transform.position = posTemp;
 
-        Debug.Log($"🔁 Trocou {primeiroSelecionado.name} com {segundoSelecionado.name}");
-
-        // Remove destaque
-        primeiroSelecionado.transform.localScale /= 1.1f;
-        segundoSelecionado.transform.localScale /= 1.1f;
+        Debug.Log($"Trocou {primeiroSelecionado.name} com {segundoSelecionado.name}");
 
         // limpando seleção
         primeiroSelecionado = null;
@@ -72,11 +84,11 @@ public class BookShelfPuzzle : MonoBehaviour
         List<Transform> livrosOrdenados = new List<Transform>(livros);
         livrosOrdenados.Sort((a, b) => a.position.x.CompareTo(b.position.x));
 
-        Debug.Log("=== ORDEM DETECTADA ===");
+        Debug.Log("ORDEM DETECTADA");
         for (int i = 0; i < livrosOrdenados.Count; i++)
             Debug.Log($"Pos {i}: {livrosOrdenados[i].name}");
 
-        Debug.Log("=== ORDEM CORRETA ESPERADA ===");
+        Debug.Log("ORDEM CORRETA ESPERADA");
         for (int i = 0; i < ordemCorreta.Count; i++)
             Debug.Log($"Pos {i}: {ordemCorreta[i].name}");
 
@@ -87,14 +99,14 @@ public class BookShelfPuzzle : MonoBehaviour
             if (livrosOrdenados[i] != ordemCorreta[i])
             {
                 tudoCerto = false;
-                Debug.Log($"❌ Erro na posição {i}: {livrosOrdenados[i].name} != {ordemCorreta[i].name}");
+                Debug.Log($"Erro na posição {i}: {livrosOrdenados[i].name} != {ordemCorreta[i].name}");
                 break;
             }
         }
 
         if (tudoCerto)
         {
-            Debug.Log("🎯🎯🎯 PUZZLE COMPLETO! 🎯🎯🎯");
+            Debug.Log("PUZZLE COMPLETO!");
             if (folhaRespostas != null)
                 folhaRespostas.SetActive(true);
         }
