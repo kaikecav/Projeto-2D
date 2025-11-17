@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: folha_resposta
   itemName: Folha Resposta
-  itemImage: {fileID: 21300000, guid: 8060c90465987a64aadf1fd7502a3d24, type: 3}
-  description: Senha da maleta 624
+  itemImage: {fileID: 21300000, guid: e6b7d78b5e44a0948ababd00d6fb8db7, type: 3}
+  description: "Meia Duzia, quase campe\xE3o, 2x2"

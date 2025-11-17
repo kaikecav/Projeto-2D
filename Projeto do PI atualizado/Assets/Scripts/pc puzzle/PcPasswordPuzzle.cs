@@ -17,7 +17,7 @@ public class PcPasswordPuzzle : MonoBehaviour
     public Button btnConfirmar;
 
     [Header("Config")]
-    public string senhaCorreta = "1234";
+    public string senhaCorreta = "1987";
 
     // armazena o último valor real recebido pelo onValueChanged
     private string _ultimoValorDigitado = string.Empty;

@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public class ResetGame : MonoBehaviour
 {
+    [Header("Deathscare")]
+    public GameObject deathscarePanel;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        LoadReset();
     }
 
     // Update is called once per frame
@@ -18,6 +20,13 @@ public class ResetGame : MonoBehaviour
 
     }
 
+    public IEnumerator TriggerJumpscare()
+    {
+        if (deathscarePanel != null)
+            deathscarePanel.SetActive(true);
+
+        yield return new WaitForSecondsRealtime(1f);
+    }
     public void LoadReset()
     {
         StartCoroutine(LoadSceneAsync(0));
